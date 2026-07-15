@@ -211,6 +211,24 @@
     .pagination-footer-nav .page-link-node:hover { background: var(--border-light); color: var(--text); }
     .pagination-footer-nav .page-link-node.active { background: var(--primary-gradient); color: #FFFFFF; border-color: transparent; }
 
+    /* --- Empty State / Illustration Styles (From Favorites Reference) --- */
+    .premium-illustration-wrap { 
+        grid-column: 1 / -1; 
+        text-align: center; 
+        padding: 50px 16px; 
+        background: #FFFFFF; 
+        border: 1.5px dashed var(--border); 
+        border-radius: var(--radius-lg); 
+        display: flex; 
+        flex-direction: column; 
+        align-items: center; 
+        justify-content: center; 
+    }
+    .premium-illustration-wrap .vector-container { width: 140px; height: 140px; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; }
+    .premium-illustration-wrap svg { width: 100%; height: 100%; }
+    .premium-illustration-wrap h4 { font-size: 1.15rem; font-weight: 800; color: var(--text); margin-bottom: 4px; }
+    .premium-illustration-wrap p { font-size: 0.88rem; color: var(--text-secondary); max-width: 320px; margin: 0 auto 20px; line-height: 1.5; }
+
     /* ===== TABLET RESPONSIVE: 769px - 1024px ===== */
     @media (min-width: 769px) and (max-width: 1024px) {
         .providers-response-grid {
@@ -358,17 +376,98 @@
             </div>
         {% endfor %}
     {% else %}
-        <div class="premium-illustration-wrap" style="grid-column: 1 / -1; margin: 20px 0;">
+        <!-- EMPTY STATE LOGIC -->
+        <div class="premium-illustration-wrap">
             <div class="vector-container">
-                <svg viewBox="0 0 200 200" width="120" height="120" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="100" cy="100" r="75" fill="#F5F1EC" opacity="0.8"/>
-                    <path d="M70 110 C70 90, 130 90, 130 110" fill="none" stroke="var(--text-muted)" stroke-width="4" stroke-linecap="round"/>
-                    <circle cx="85" cy="80" r="6" fill="var(--text-muted)"/>
-                    <circle cx="115" cy="80" r="6" fill="var(--text-muted)"/>
-                </svg>
+                {% if selected_category %}
+                    <!-- Dynamic Category Related Images -->
+                    {% set cat_lower = selected_category|lower %}
+                    
+                    {% if 'plumb' in cat_lower or 'pipe' in cat_lower or 'water' in cat_lower %}
+                        <!-- Plumbing Icon -->
+                        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="100" cy="100" r="75" fill="#F5F1EC" opacity="0.8"/>
+                            <path d="M70 60 L70 100 C70 115 85 120 95 110 L95 90 L115 90 L115 110 C125 120 140 115 140 100 L140 60" fill="none" stroke="var(--primary)" stroke-width="8" stroke-linecap="round"/>
+                            <rect x="60" y="50" width="90" height="15" rx="5" fill="var(--text-muted)"/>
+                            <circle cx="105" cy="135" r="12" fill="var(--primary)" opacity="0.2"/>
+                            <path d="M105 135 L105 155" stroke="var(--primary)" stroke-width="4" stroke-linecap="round"/>
+                        </svg>
+                    {% elif 'elect' in cat_lower or 'wire' in cat_lower or 'power' in cat_lower %}
+                        <!-- Electrical Icon -->
+                        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="100" cy="100" r="75" fill="#F5F1EC" opacity="0.8"/>
+                            <path d="M110 50 L80 110 L100 110 L90 160 L130 90 L110 90 L120 50 Z" fill="#FFD700" stroke="#B8860B" stroke-width="2"/>
+                            <circle cx="60" cy="60" r="4" fill="var(--text-muted)"/>
+                            <circle cx="140" cy="140" r="4" fill="var(--text-muted)"/>
+                        </svg>
+                    {% elif 'clean' in cat_lower or 'maid' in cat_lower or 'wash' in cat_lower %}
+                        <!-- Cleaning Icon -->
+                        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="100" cy="100" r="75" fill="#F5F1EC" opacity="0.8"/>
+                            <path d="M90 140 L110 60" stroke="var(--text-muted)" stroke-width="8" stroke-linecap="round"/>
+                            <path d="M80 150 C70 160 70 170 80 175 C90 180 110 180 120 175 C130 170 130 160 120 150 Z" fill="var(--primary)"/>
+                            <circle cx="70" cy="80" r="5" fill="#E2E8F0"/>
+                            <circle cx="130" cy="90" r="7" fill="#E2E8F0"/>
+                            <circle cx="60" cy="110" r="4" fill="#E2E8F0"/>
+                        </svg>
+                    {% elif 'health' in cat_lower or 'med' in cat_lower or 'doctor' in cat_lower %}
+                        <!-- Health Icon -->
+                        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="100" cy="100" r="75" fill="#F5F1EC" opacity="0.8"/>
+                            <rect x="85" y="60" width="30" height="80" rx="5" fill="#FFFFFF" stroke="var(--red)" stroke-width="2"/>
+                            <rect x="60" y="85" width="80" height="30" rx="5" fill="#FFFFFF" stroke="var(--red)" stroke-width="2"/>
+                            <rect x="92" y="72" width="16" height="56" fill="var(--red)"/>
+                            <rect x="72" y="92" width="56" height="16" fill="var(--red)"/>
+                        </svg>
+                    {% elif 'beauty' in cat_lower or 'salon' in cat_lower or 'hair' in cat_lower %}
+                        <!-- Beauty Icon -->
+                        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="100" cy="100" r="75" fill="#F5F1EC" opacity="0.8"/>
+                            <path d="M80 130 C80 100 120 100 120 130" fill="none" stroke="var(--text-muted)" stroke-width="4"/>
+                            <path d="M100 70 C120 70 130 90 130 110" fill="none" stroke="var(--text-muted)" stroke-width="4" stroke-linecap="round"/>
+                            <circle cx="100" cy="60" r="15" fill="var(--pink-soft)" opacity="0.5"/>
+                        </svg>
+                    {% elif 'auto' in cat_lower or 'car' in cat_lower or 'mechanic' in cat_lower %}
+                        <!-- Auto Icon -->
+                        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="100" cy="100" r="75" fill="#F5F1EC" opacity="0.8"/>
+                            <path d="M60 110 L70 90 L130 90 L140 110" fill="none" stroke="var(--text-muted)" stroke-width="4" stroke-linejoin="round"/>
+                            <circle cx="75" cy="110" r="10" fill="var(--text-muted)"/>
+                            <circle cx="125" cy="110" r="10" fill="var(--text-muted)"/>
+                            <path d="M100 60 L100 80" stroke="var(--primary)" stroke-width="4"/>
+                            <path d="M90 70 L110 70" stroke="var(--primary)" stroke-width="4"/>
+                        </svg>
+                    {% else %}
+                        <!-- Generic Tool Icon for other categories -->
+                        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="100" cy="100" r="75" fill="#F5F1EC" opacity="0.8"/>
+                            <path d="M130 70 L110 90 L120 100 L140 80 Z" fill="var(--text-muted)"/>
+                            <path d="M90 110 L110 90" stroke="var(--text-muted)" stroke-width="8" stroke-linecap="round"/>
+                            <circle cx="80" cy="120" r="15" fill="none" stroke="var(--primary)" stroke-width="4"/>
+                        </svg>
+                    {% endif %}
+                {% else %}
+                    <!-- Default Sad Face / No Results -->
+                    <svg viewBox="0 0 200 200" width="120" height="120" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="100" cy="100" r="75" fill="#F5F1EC" opacity="0.8"/>
+                        <path d="M70 110 C70 90, 130 90, 130 110" fill="none" stroke="var(--text-muted)" stroke-width="4" stroke-linecap="round"/>
+                        <circle cx="85" cy="80" r="6" fill="var(--text-muted)"/>
+                        <circle cx="115" cy="80" r="6" fill="var(--text-muted)"/>
+                    </svg>
+                {% endif %}
             </div>
-            <h4>No Specialists Discovered</h4>
-            <p>Try clearing your active category filters or search for another term.</p>
+            
+            {% if selected_category %}
+                <h4>No {{ selected_category }} Specialists Found</h4>
+                <p>We couldn't find any experts in this category right now. Try selecting a different category or clearing filters.</p>
+            {% else %}
+                <h4>No Specialists Discovered</h4>
+                <p>Try clearing your active category filters or search for another term.</p>
+            {% endif %}
+            
+            {% if selected_category %}
+                 <a href="{{ url_for('providers') }}" class="btn btn-primary btn-sm">View All Categories</a>
+            {% endif %}
         </div>
     {% endif %}
 </div>
